@@ -5,20 +5,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Basic Webpage</title>
     <link rel="stylesheet" href="style.css"> 
+    <style>
+        nav a {
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+        button {
+            transition: transform 0.3s ease;
+        }
+        header h1 {
+            animation: moveUpDown 2s infinite ease-in-out, colorChange 4s infinite linear;
+        }
+        @keyframes moveUpDown {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        @keyframes colorChange {
+            0% {
+                color: blue;
+            }
+            25% {
+                color: lightblue;
+            }
+            50% {
+                color: purple;
+            }
+            75% {
+                color: violet;
+            }
+            100% {
+                color: blue;
+            }
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Page loaded successfully!');
+            
+            const button = document.querySelector('button');
+            button.addEventListener('click', () => {
+                alert('You clicked the button!');
+                button.animate([
+                    { transform: 'scale(1)' },
+                    { transform: 'scale(1.2)' },
+                    { transform: 'scale(1)' }
+                ], {
+                    duration: 300,
+                    iterations: 1
+                });
+            });
+
+            const toggleButton = document.querySelector('#toggleButton');
+            const mainContent = document.querySelector('main p');
+            toggleButton.addEventListener('click', () => {
+                mainContent.textContent = mainContent.textContent === 'This is the main content area.'
+                    ? 'The content has been toggled!'
+                    : 'This is the main content area.';
+            });
+
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(link => {
+                link.addEventListener('mouseover', () => {
+                    link.style.color = 'red';
+                    link.style.transform = 'scale(1.1)';
+                });
+                link.addEventListener('mouseout', () => {
+                    link.style.color = '';
+                    link.style.transform = 'scale(1)';
+                });
+            });
+        });
+    </script>
 </head>
 <body>
     <header>
         <h1>Welcome to My Webpage</h1>
     </header>
     <nav>
-        <a href="#home">Home</a>
+        <a href="home.html">Home</a>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
     </nav>
     
     <main>
         <p>This is the main content area.</p>
-        <button onclick="alert('Button clicked!')">Click Me</button>
+        <button>Click Me</button>
+        <button id="toggleButton">Toggle Content</button>
     </main>
     <footer>
         <p>&copy; 2023 My Webpage</p>
